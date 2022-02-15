@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import guru.qa.helpers.Attach;
 import guru.qa.pages.RegistrationPage;
-
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +12,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class TestBase {
 
-    RegistrationPage registrationPages = new RegistrationPage();
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
     static void setUp() {
@@ -26,18 +25,18 @@ public class TestBase {
         String url = System.getProperty("url");
         String login = System.getProperty("login");
         String password = System.getProperty("password");
-        Configuration.remote = "https://"+login+":"+password+"@"+url;
+        Configuration.remote = "https://" + login + ":" + password + "@" + url;
 
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC",true);
-        capabilities.setCapability("enableVideo",true);
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
     }
 
     @AfterEach
     void addAttachments() {
-        Attach.screenshotAs(System.getProperty("browser")+" "+System.getProperty("version"));
+        Attach.screenshotAs(System.getProperty("browser") + " " + System.getProperty("version"));
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
